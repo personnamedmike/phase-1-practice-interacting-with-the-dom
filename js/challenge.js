@@ -12,7 +12,7 @@ let like = 0;
 let counterId = 0;
 
 // auto timer
-const timer = setInterval(() => {
+let timer = setInterval(() => {
   like = 0;
   counter.textContent = counterId;
   counterId++;
@@ -51,7 +51,18 @@ form.addEventListener("submit", (e) => {
 
 // pause timer
 pause.addEventListener("click", (e) => {
-  clearInterval(timer);
+  console.log(e.target.textContent.trim() === "pause");
+  if (e.target.textContent.trim() === "pause") {
+    clearInterval(timer);
+    pause.textContent = "resume";
+  } else if (e.target.textContent.trim() === "resume") {
+    timer = setInterval(() => {
+      like = 0;
+      counter.textContent = counterId;
+      counterId++;
+    }, 1000);
+    e.target.textContent = "pause";
+  }
 });
 
 restart.addEventListener("click", () => {
